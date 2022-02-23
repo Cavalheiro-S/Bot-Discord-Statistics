@@ -1,15 +1,13 @@
 import axios from "../../node_modules/axios/index";
-import getNameOfAllChampionsMastery from "./champion";
-import embedImageInfo from "./embed/infoPlayer";
+import{ getInfoAllChampions }from "./champion";
+import {embedImageInfo} from "./embed/PlayerInfo";
 import summonerProps from './interface/summoner';
 
-async function infoPlayer(name) {
-
+async function embedPlayerInfo(name) {
     const dataPlayer = await getInfoByNamePlayer(name);
     const urlIcon = await getUrlImageIcon(dataPlayer.profileIconId);
-    const championsMastery = await getNameOfAllChampionsMastery(dataPlayer.id)
-    
-    return embedImageInfo(dataPlayer, urlIcon, championsMastery)
+    const infoChampions = await getInfoAllChampions(dataPlayer.id)
+    return embedImageInfo(dataPlayer, urlIcon, infoChampions)
 }
 
 async function getUrlImageIcon(idIcon) {
@@ -21,4 +19,4 @@ async function getInfoByNamePlayer(name) {
         .then(response => response.data);
 }
 
-export default infoPlayer;
+export {embedPlayerInfo, getUrlImageIcon ,getInfoByNamePlayer};

@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var player_1 = require("./Riot/player");
 require("dotenv/config");
-var _a = require("discord.js"), Client = _a.Client, Intents = _a.Intents, MessageAttachment = _a.MessageAttachment;
+var Riot_1 = require("./Riot");
+var _a = require("discord.js"), Client = _a.Client, Intents = _a.Intents;
 var prefix = '/';
 var client = new Client({
     intents: [
@@ -50,23 +50,25 @@ client.once("ready", function () {
     console.log("Bot is ready");
 });
 client.on("messageCreate", function (message) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, args, commandMessage, _b, command, sufixCommand, _c, attachment, error_1;
+    var _a, whiteSpace, commandMessage, _b, commandName, commandSuffix, _c, attachment, error_1, attachment, error_2;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
                 if (!message.content.startsWith(prefix) || message.author.bot)
                     return [2 /*return*/];
-                _a = message.content.split(prefix), args = _a[0], commandMessage = _a[1];
-                _b = commandMessage.split(" "), command = _b[0], sufixCommand = _b[1];
-                console.log(commandMessage);
-                _c = command;
+                _a = message.content.split(prefix), whiteSpace = _a[0], commandMessage = _a[1];
+                _b = commandMessage.split(" "), commandName = _b[0], commandSuffix = _b[1];
+                if (commandSuffix === " " || commandSuffix === "")
+                    return [2 /*return*/];
+                _c = commandName;
                 switch (_c) {
                     case "info": return [3 /*break*/, 1];
+                    case "chest": return [3 /*break*/, 4];
                 }
-                return [3 /*break*/, 4];
+                return [3 /*break*/, 7];
             case 1:
                 _d.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, player_1.default)(sufixCommand)];
+                return [4 /*yield*/, (0, Riot_1.embedPlayerInfo)(commandSuffix)];
             case 2:
                 attachment = _d.sent();
                 message.channel.send({
@@ -78,7 +80,19 @@ client.on("messageCreate", function (message) { return __awaiter(void 0, void 0,
                 console.log(error_1);
                 message.channel.send("Jogador não encontrado");
                 return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+            case 4:
+                _d.trys.push([4, 6, , 7]);
+                return [4 /*yield*/, (0, Riot_1.embedChampions)(commandSuffix)];
+            case 5:
+                attachment = _d.sent();
+                message.channel.send({ embeds: [attachment] });
+                return [3 /*break*/, 7];
+            case 6:
+                error_2 = _d.sent();
+                console.log(error_2);
+                message.channel.send("Erro encontrado");
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
     });
 }); });

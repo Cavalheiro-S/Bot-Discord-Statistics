@@ -36,70 +36,106 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.embedChampions = exports.getInfoAllChampions = void 0;
 var index_1 = require("../../node_modules/axios/index");
-function getNameOfAllChampionsMastery(playerId) {
+var PlayerInfo_1 = require("./embed/PlayerInfo");
+var player_1 = require("./player");
+function embedChampions(name) {
     return __awaiter(this, void 0, void 0, function () {
-        var listOfMasteryAllChampions, arrayOfChampions, _a, _b, _c, _d;
-        var _e, _f, _g;
-        return __generator(this, function (_h) {
-            switch (_h.label) {
-                case 0: return [4 /*yield*/, getMasteryChampions(playerId)];
-                case 1:
-                    listOfMasteryAllChampions = _h.sent();
-                    _e = {};
-                    return [4 /*yield*/, verifyWhichNameOfIdChampion(listOfMasteryAllChampions[0].championId)];
-                case 2:
-                    _e.name = _h.sent();
-                    _a = getUrlImageChampion;
-                    return [4 /*yield*/, verifyWhichNameOfIdChampion(listOfMasteryAllChampions[0].championId)];
-                case 3: return [4 /*yield*/, _a.apply(void 0, [_h.sent()])];
-                case 4:
-                    _b = [(_e.image = _h.sent(),
-                            _e)];
-                    _f = {};
-                    return [4 /*yield*/, verifyWhichNameOfIdChampion(listOfMasteryAllChampions[1].championId)];
-                case 5:
-                    _f.name = _h.sent();
-                    _c = getUrlImageChampion;
-                    return [4 /*yield*/, verifyWhichNameOfIdChampion(listOfMasteryAllChampions[1].championId)];
-                case 6: return [4 /*yield*/, _c.apply(void 0, [_h.sent()])];
-                case 7:
-                    _b = _b.concat([(_f.image = _h.sent(),
-                            _f)]);
-                    _g = {};
-                    return [4 /*yield*/, verifyWhichNameOfIdChampion(listOfMasteryAllChampions[2].championId)];
-                case 8:
-                    _g.name = _h.sent();
-                    _d = getUrlImageChampion;
-                    return [4 /*yield*/, verifyWhichNameOfIdChampion(listOfMasteryAllChampions[2].championId)];
-                case 9: return [4 /*yield*/, _d.apply(void 0, [_h.sent()])];
-                case 10:
-                    arrayOfChampions = _b.concat([(_g.image = _h.sent(),
-                            _g)]);
-                    return [2 /*return*/, arrayOfChampions];
-            }
-        });
-    });
-}
-function getMasteryChampions(playerId) {
-    return __awaiter(this, void 0, void 0, function () {
+        var playerInfo, urlIcon, championsMastery;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.default.get("https://br1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/".concat(playerId, "?api_key=").concat(process.env.RIOT_API_KEY))
-                        .then(function (response) { return response.data; })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 0: return [4 /*yield*/, (0, player_1.getInfoByNamePlayer)(name)];
+                case 1:
+                    playerInfo = _a.sent();
+                    return [4 /*yield*/, (0, player_1.getUrlImageIcon)(playerInfo.profileIconId)];
+                case 2:
+                    urlIcon = _a.sent();
+                    return [4 /*yield*/, getInfoAllChampions(playerInfo.id)];
+                case 3:
+                    championsMastery = _a.sent();
+                    return [2 /*return*/, (0, PlayerInfo_1.embedChampionChestInfo)(playerInfo, urlIcon, championsMastery)];
             }
         });
     });
 }
-function getUrlImageChampion(nameChampion) {
-    return "http://ddragon.leagueoflegends.com/cdn/12.4.1/img/champion/".concat(nameChampion, ".png");
-}
-function getAllChampionsJson() {
+exports.embedChampions = embedChampions;
+function getInfoAllChampions(playerId) {
     return __awaiter(this, void 0, void 0, function () {
+        var listOfChampions, championsName, championsWithoutChest;
         return __generator(this, function (_a) {
-            return [2 /*return*/, index_1.default.get("http://ddragon.leagueoflegends.com/cdn/12.4.1/data/pt_BR/champion.json")
-                    .then(function (response) { return response.data.data; })];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getMasteryChampions(playerId)];
+                case 1:
+                    listOfChampions = _a.sent();
+                    return [4 /*yield*/, getNameOfAllChampionsMastery(listOfChampions)];
+                case 2:
+                    championsName = _a.sent();
+                    return [4 /*yield*/, getChampionsWithoutChestGranted(listOfChampions)];
+                case 3:
+                    championsWithoutChest = _a.sent();
+                    return [2 /*return*/, {
+                            championsName: championsName,
+                            championsWithoutChest: championsWithoutChest
+                        }];
+            }
+        });
+    });
+}
+exports.getInfoAllChampions = getInfoAllChampions;
+function getNameOfAllChampionsMastery(listOfChampions) {
+    return __awaiter(this, void 0, void 0, function () {
+        var arrayOfInfoChampions;
+        var _this = this;
+        return __generator(this, function (_a) {
+            arrayOfInfoChampions = listOfChampions.map(function (infoMasteryChampion, index) { return __awaiter(_this, void 0, void 0, function () {
+                var name_1, image;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!(index <= 20)) return [3 /*break*/, 3];
+                            return [4 /*yield*/, verifyWhichNameOfIdChampion(infoMasteryChampion.championId)];
+                        case 1:
+                            name_1 = _a.sent();
+                            return [4 /*yield*/, getUrlImageChampion(name_1)];
+                        case 2:
+                            image = _a.sent();
+                            return [2 /*return*/, {
+                                    name: name_1,
+                                    image: image
+                                }];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); });
+            return [2 /*return*/, Promise.all(arrayOfInfoChampions)];
+        });
+    });
+}
+function getChampionsWithoutChestGranted(listOfChampions) {
+    return __awaiter(this, void 0, void 0, function () {
+        var championsWithoutChest;
+        var _this = this;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    championsWithoutChest = listOfChampions.map(function (championInfo) { return __awaiter(_this, void 0, void 0, function () {
+                        var name_2;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    if (!!championInfo.chestGranted) return [3 /*break*/, 2];
+                                    return [4 /*yield*/, verifyWhichNameOfIdChampion(championInfo.championId)];
+                                case 1:
+                                    name_2 = _a.sent();
+                                    return [2 /*return*/, name_2];
+                                case 2: return [2 /*return*/];
+                            }
+                        });
+                    }); });
+                    return [4 /*yield*/, Promise.all(championsWithoutChest)];
+                case 1: return [2 /*return*/, (_a.sent()).filter(function (champion) { return champion ? champion : null; })];
+            }
         });
     });
 }
@@ -118,4 +154,25 @@ function verifyWhichNameOfIdChampion(idChampion) {
         });
     });
 }
-exports.default = getNameOfAllChampionsMastery;
+function getAllChampionsJson() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, index_1.default.get("http://ddragon.leagueoflegends.com/cdn/12.4.1/data/pt_BR/champion.json")
+                    .then(function (response) { return response.data.data; })];
+        });
+    });
+}
+function getMasteryChampions(playerId) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, index_1.default.get("https://br1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/".concat(playerId, "?api_key=").concat(process.env.RIOT_API_KEY))
+                        .then(function (response) { return response.data; })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+function getUrlImageChampion(nameChampion) {
+    return "http://ddragon.leagueoflegends.com/cdn/12.4.1/img/champion/".concat(nameChampion, ".png");
+}

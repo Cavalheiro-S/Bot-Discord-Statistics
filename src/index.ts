@@ -1,8 +1,6 @@
-import infoPlayer from "./Riot/player";
-
 require("dotenv/config");
-const { Client, Intents, MessageAttachment } = require("discord.js");
-
+import {embedPlayerInfo, embedChampions} from "./Riot";
+const { Client, Intents } = require("discord.js");
 const prefix = '/';
 
 const client = new Client({
@@ -17,15 +15,14 @@ client.once("ready", () => {
 })
 
 client.on("messageCreate",async message => {
-
     if(!message.content.startsWith(prefix) || message.author.bot) return;
-    const [args, commandMessage] = message.content.split(prefix);
-    const [command, sufixCommand] = commandMessage.split(" ");
-    console.log(commandMessage);
-    switch(command){
+    const [whiteSpace, commandMessage] = message.content.split(prefix);
+    const [commandName, commandSuffix] = commandMessage.split(" ");
+    if(commandSuffix === " " || commandSuffix === "") return;
+    switch(commandName){
         case "info":
             try {
-                const attachment = await infoPlayer(sufixCommand);
+                const attachment = await embedPlayerInfo(commandSuffix);
                 message.channel.send({
                     embeds : [attachment]
                 })
@@ -33,6 +30,16 @@ client.on("messageCreate",async message => {
             } catch (error) {
                 console.log(error);
                 message.channel.send("Jogador não encontrado");
+            }
+        case "chest":
+            try {
+                const attachment = await embedChampions(commandSuffix)
+                message.channel.send(
+                    {embeds : [attachment]}
+                )
+            } catch (error) {
+                console.log(error);
+                message.channel.send("Erro encontrado")
             }
     }
 })

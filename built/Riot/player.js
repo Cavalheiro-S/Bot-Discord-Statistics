@@ -36,12 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getInfoByNamePlayer = exports.getUrlImageIcon = exports.embedPlayerInfo = void 0;
 var index_1 = require("../../node_modules/axios/index");
 var champion_1 = require("./champion");
-var infoPlayer_1 = require("./embed/infoPlayer");
-function infoPlayer(name) {
+var PlayerInfo_1 = require("./embed/PlayerInfo");
+function embedPlayerInfo(name) {
     return __awaiter(this, void 0, void 0, function () {
-        var dataPlayer, urlIcon, championsMastery;
+        var dataPlayer, urlIcon, infoChampions;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, getInfoByNamePlayer(name)];
@@ -50,14 +51,15 @@ function infoPlayer(name) {
                     return [4 /*yield*/, getUrlImageIcon(dataPlayer.profileIconId)];
                 case 2:
                     urlIcon = _a.sent();
-                    return [4 /*yield*/, (0, champion_1.default)(dataPlayer.id)];
+                    return [4 /*yield*/, (0, champion_1.getInfoAllChampions)(dataPlayer.id)];
                 case 3:
-                    championsMastery = _a.sent();
-                    return [2 /*return*/, (0, infoPlayer_1.default)(dataPlayer, urlIcon, championsMastery)];
+                    infoChampions = _a.sent();
+                    return [2 /*return*/, (0, PlayerInfo_1.embedImageInfo)(dataPlayer, urlIcon, infoChampions)];
             }
         });
     });
 }
+exports.embedPlayerInfo = embedPlayerInfo;
 function getUrlImageIcon(idIcon) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -65,6 +67,7 @@ function getUrlImageIcon(idIcon) {
         });
     });
 }
+exports.getUrlImageIcon = getUrlImageIcon;
 function getInfoByNamePlayer(name) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -76,4 +79,4 @@ function getInfoByNamePlayer(name) {
         });
     });
 }
-exports.default = infoPlayer;
+exports.getInfoByNamePlayer = getInfoByNamePlayer;

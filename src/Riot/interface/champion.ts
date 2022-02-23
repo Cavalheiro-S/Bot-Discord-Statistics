@@ -14,3 +14,11 @@ interface championInfoProps{
     blurb: string
     tags : Array<string>
 }
+
+interface majorInfoChampions{
+    championsName: {
+        name: string,
+        image: string
+    }[],
+    championsWithoutChest:string[]
+}
