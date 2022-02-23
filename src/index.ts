@@ -1,6 +1,8 @@
+import infoPlayer from "./Riot/player";
+
 require("dotenv/config");
 const { Client, Intents, MessageAttachment } = require("discord.js");
-const infoPlayer = require("./queriesRiot.js");
+
 const prefix = '/';
 
 const client = new Client({
