@@ -1,9 +1,10 @@
 {
   "name": "bot-discord-lol",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "built/index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only --poll ./src/index.ts",
+    "start": "node .",
+    "dev": "ts-node-dev --respawn --transpile-only --poll ./src/index.ts",
     "compile": "tsc -w"
   },
   "dependencies": {
