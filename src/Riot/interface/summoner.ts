@@ -1,3 +1,4 @@
+require("dotenv/config");
 interface summonerProps{
     accountId : string,
     profileIconId: number,

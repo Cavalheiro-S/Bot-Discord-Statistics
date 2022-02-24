@@ -1,4 +1,5 @@
 import axios from "../../node_modules/axios/index";
+import { championMasteryProps, championInfoProps, majorInfoChampions } from "./interface/champion";
 import { embedChampionChestInfo } from "./embed/PlayerInfo";
 import { getUrlImageIcon, getInfoByNamePlayer } from "./player"
 

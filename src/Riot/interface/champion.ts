@@ -1,3 +1,4 @@
+const teste = require("dotenv");
 interface championMasteryProps{
     chestGranted: boolean,
     championId: number,
@@ -22,3 +23,5 @@ interface majorInfoChampions{
     }[],
     championsWithoutChest:string[]
 }
+
+export {championInfoProps, majorInfoChampions, championMasteryProps}

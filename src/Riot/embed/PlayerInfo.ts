@@ -1,4 +1,5 @@
 import summonerProps from '../interface/summoner';
+import { majorInfoChampions } from '../interface/champion';
 const { MessageEmbed } = require("discord.js")
 
 function embedImageInfo(infoPlayer: summonerProps, urlIcon : string, championsMastery : majorInfoChampions) {

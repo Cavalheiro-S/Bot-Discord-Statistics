@@ -63,9 +63,9 @@ client.on("messageCreate", function (message) { return __awaiter(void 0, void 0,
                 _c = commandName;
                 switch (_c) {
                     case "info": return [3 /*break*/, 1];
-                    case "chest": return [3 /*break*/, 4];
+                    case "chest": return [3 /*break*/, 5];
                 }
-                return [3 /*break*/, 7];
+                return [3 /*break*/, 9];
             case 1:
                 _d.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, (0, Riot_1.embedPlayerInfo)(commandSuffix)];
@@ -80,19 +80,21 @@ client.on("messageCreate", function (message) { return __awaiter(void 0, void 0,
                 console.log(error_1);
                 message.channel.send("Jogador não encontrado");
                 return [3 /*break*/, 4];
-            case 4:
-                _d.trys.push([4, 6, , 7]);
-                return [4 /*yield*/, (0, Riot_1.embedChampions)(commandSuffix)];
+            case 4: return [3 /*break*/, 9];
             case 5:
+                _d.trys.push([5, 7, , 8]);
+                return [4 /*yield*/, (0, Riot_1.embedChampions)(commandSuffix)];
+            case 6:
                 attachment = _d.sent();
                 message.channel.send({ embeds: [attachment] });
-                return [3 /*break*/, 7];
-            case 6:
+                return [3 /*break*/, 8];
+            case 7:
                 error_2 = _d.sent();
                 console.log(error_2);
                 message.channel.send("Erro encontrado");
-                return [3 /*break*/, 7];
-            case 7: return [2 /*return*/];
+                return [3 /*break*/, 8];
+            case 8: return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
     });
 }); });

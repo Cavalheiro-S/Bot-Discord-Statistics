@@ -2,7 +2,7 @@ require("dotenv/config");
 import {embedPlayerInfo, embedChampions} from "./Riot";
 const { Client, Intents } = require("discord.js");
 const prefix = '/';
-
+ 
 const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
@@ -14,7 +14,7 @@ client.once("ready", () => {
     console.log("Bot is ready");
 })
 
-client.on("messageCreate",async message => {
+client.on("messageCreate",async (message) => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     const [whiteSpace, commandMessage] = message.content.split(prefix);
     const [commandName, commandSuffix] = commandMessage.split(" ");
@@ -31,6 +31,7 @@ client.on("messageCreate",async message => {
                 console.log(error);
                 message.channel.send("Jogador não encontrado");
             }
+        break;
         case "chest":
             try {
                 const attachment = await embedChampions(commandSuffix)
@@ -41,6 +42,7 @@ client.on("messageCreate",async message => {
                 console.log(error);
                 message.channel.send("Erro encontrado")
             }
+        break;
     }
 })
 
