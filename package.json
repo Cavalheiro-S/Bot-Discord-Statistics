@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "built/index.js",
   "scripts": {
-    "start": "node .",
+    "start": "node . --port $PORT",
     "dev": "ts-node-dev --respawn --transpile-only --poll ./src/index.ts"
   },
   "dependencies": {
