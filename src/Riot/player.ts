@@ -1,3 +1,4 @@
+require("dotenv/config");
 import axios from "../../node_modules/axios/index";
 import{ getInfoAllChampions }from "./champion";
 import {embedImageInfo} from "./embed/PlayerInfo";
